@@ -1,8 +1,10 @@
+/* eslint-disable no-undef */
 import express from "express";
 import fetch from "node-fetch";
 import "dotenv/config";
 import path from "path";
 
+// eslint-disable-next-line no-undef
 const { PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET, PORT = 8888 } = process.env;
 const base = "https://api-m.sandbox.paypal.com";
 const app = express();
@@ -22,6 +24,7 @@ const generateAccessToken = async () => {
     if (!PAYPAL_CLIENT_ID || !PAYPAL_CLIENT_SECRET) {
       throw new Error("MISSING_API_CREDENTIALS");
     }
+    // eslint-disable-next-line no-undef
     const auth = Buffer.from(
       PAYPAL_CLIENT_ID + ":" + PAYPAL_CLIENT_SECRET,
     ).toString("base64");
@@ -36,6 +39,7 @@ const generateAccessToken = async () => {
     const data = await response.json();
     return data.access_token;
   } catch (error) {
+    // eslint-disable-next-line no-undef
     console.error("Failed to generate Access Token:", error);
   }
 };
@@ -46,6 +50,7 @@ const generateAccessToken = async () => {
  */
 const createOrder = async (cart) => {
   // use the cart information passed from the front-end to calculate the purchase unit details
+  // eslint-disable-next-line no-undef
   console.log(
     "shopping cart information passed from the frontend createOrder() callback:",
     cart,
@@ -126,6 +131,7 @@ app.post("/api/orders", async (req, res) => {
     const { jsonResponse, httpStatusCode } = await createOrder(cart);
     res.status(httpStatusCode).json(jsonResponse);
   } catch (error) {
+    // eslint-disable-next-line no-undef
     console.error("Failed to create order:", error);
     res.status(500).json({ error: "Failed to create order." });
   }
@@ -148,5 +154,6 @@ app.get("/", (req, res) => {
 });
 
 app.listen(PORT, () => {
+  // eslint-disable-next-line no-undef
   console.log(`Node server listening at http://localhost:${PORT}/`);
 });
