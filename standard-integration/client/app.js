@@ -1,7 +1,9 @@
+// eslint-disable-next-line no-undef
 window.paypal
   .Buttons({
     async createOrder() {
       try {
+        // eslint-disable-next-line no-undef
         const response = await fetch("/api/orders", {
           method: "POST",
           headers: {
@@ -32,12 +34,14 @@ window.paypal
           throw new Error(errorMessage);
         }
       } catch (error) {
+        // eslint-disable-next-line no-undef
         console.error(error);
         resultMessage(`Could not initiate PayPal Checkout...<br><br>${error}`);
       }
     },
     async onApprove(data, actions) {
       try {
+        // eslint-disable-next-line no-undef
         const response = await fetch(`/api/orders/${data.orderID}/capture`, {
           method: "POST",
           headers: {
@@ -71,6 +75,7 @@ window.paypal
           resultMessage(
             `Transaction ${transaction.status}: ${transaction.id}<br><br>See console for all available details`,
           );
+          // eslint-disable-next-line no-undef
           console.log(
             "Capture result",
             orderData,
@@ -78,6 +83,7 @@ window.paypal
           );
         }
       } catch (error) {
+        // eslint-disable-next-line no-undef
         console.error(error);
         resultMessage(
           `Sorry, your transaction could not be processed...<br><br>${error}`,
@@ -89,6 +95,7 @@ window.paypal
 
 // Example function to show a result to the user. Your site's UI library can be used instead.
 function resultMessage(message) {
+  // eslint-disable-next-line no-undef
   const container = document.querySelector("#result-message");
   container.innerHTML = message;
 }
